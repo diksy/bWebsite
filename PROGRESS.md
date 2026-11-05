@@ -61,3 +61,5 @@ Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu 
 
 ## Revisi 2026-11-05 (UAT siklus 2)
 - [x] Bug: `@livewireStyles` / `@livewire(...)` tampil sebagai teks di staging — provider Livewire didaftarkan eksplisit di `bootstrap/providers.php` (cache discovery server basi) + tes
+
+- [x] README ditulis ulang untuk pengguna produk (rilis GitHub): fitur, kebutuhan, pemasangan, penggunaan, SSO, pembaruan, pemecahan masalah
