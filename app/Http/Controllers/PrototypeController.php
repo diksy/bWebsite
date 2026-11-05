@@ -116,6 +116,11 @@ class PrototypeController extends Controller
         return $this->admin('proto.admin.tema', ['tema' => Dummy::temaTerjadwal(), 'penulis' => Dummy::penulis()]);
     }
 
+    public function adminSitus(): View
+    {
+        return $this->admin('proto.admin.situs');
+    }
+
     public function adminLog(): View
     {
         return $this->admin('proto.admin.log', ['log' => Dummy::logAi()]);

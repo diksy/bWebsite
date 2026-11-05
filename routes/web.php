@@ -17,5 +17,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/artikel/{id}/sunting', [PrototypeController::class, 'adminEditor'])->name('proto.admin.editor');
     Route::get('/pengaturan', [PrototypeController::class, 'adminPengaturan'])->name('proto.admin.pengaturan');
     Route::get('/tema', [PrototypeController::class, 'adminTema'])->name('proto.admin.tema');
+    Route::get('/situs', [PrototypeController::class, 'adminSitus'])->name('proto.admin.situs');
     Route::get('/log-ai', [PrototypeController::class, 'adminLog'])->name('proto.admin.log');
 });

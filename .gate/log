@@ -1,2 +1,3 @@
 2026-11-05 16:02:02 | init brief
 2026-11-05 16:06:39 | brief -> prototype 
+2026-11-05 17:09:39 | REVISI [prototype]: buat path "/admin" bisa di custom di admin panel | buat path "/artikel" juga bisa di custom di panel admin | tambahkan opsi integrasi dengan platform SSO (opsional) di https://github.com/diksy/bSSO (dokumentasi integrasi ada di https://sso.bikinin.id/panduan-integrasi.md, URL bisa jadi bukan "sso.bikinin.id")
