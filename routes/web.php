@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\PrototypeController;
+use App\Http\Controllers\SsoController;
 use App\Support\Settings;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 // Halaman publik (sementara masih prototype; diganti bertahap pada fase build)
@@ -16,3 +18,11 @@ Route::get('/artikel/{slug}', [PrototypeController::class, 'artikel'])->name('pr
 Route::prefix(trim(Settings::get('admin_path', 'admin'), '/'))
     ->name('admin.')
     ->group(base_path('routes/admin.php'));
+
+// SSO (OIDC). Path tetap agar URI terdaftar di server SSO tidak berubah saat path admin diganti.
+Route::prefix('sso')->name('admin.sso.')->group(function () {
+    Route::get('/mulai', [SsoController::class, 'mulai'])->name('mulai');
+    Route::get('/callback', [SsoController::class, 'callback'])->name('callback');
+    Route::post('/backchannel-logout', [SsoController::class, 'backchannel'])
+        ->withoutMiddleware([PreventRequestForgery::class])->name('backchannel');
+});

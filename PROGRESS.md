@@ -27,7 +27,7 @@
 ## Build (migration + model + Form Request + tes Pest + sambung view)
 - [x] Pondasi: auth (admin/penulis), tabel users+peran, middleware peran, path admin & artikel dinamis (settings)
 - [x] Pengguna: CRUD admin (Form Request, tes)
-- [ ] SSO opsional BikininSSO (OIDC+PKCE, hanya pengguna terdaftar, back-channel logout)
+- [x] SSO opsional BikininSSO (OIDC+PKCE, hanya pengguna terdaftar, back-channel logout)
 - [ ] Pengaturan: tabel settings, API key terenkripsi, uji koneksi AI & Tavily (adapter)
 - [ ] Kategori, tag, penulis (profil) + seeder
 - [ ] Artikel: model, status draf/terjadwal/terbit, editor Markdown, FAQ, sumber

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DasborController;
+use App\Http\Controllers\Admin\PengaturanSitusController;
 use App\Http\Controllers\Admin\PenggunaController;
 use App\Http\Controllers\Auth\MasukController;
 use Illuminate\Support\Facades\Route;
@@ -17,5 +18,8 @@ Route::middleware(['auth', 'peran:admin,penulis'])->group(function () {
 });
 
 Route::middleware(['auth', 'peran:admin'])->group(function () {
+    Route::get('/situs', [PengaturanSitusController::class, 'edit'])->name('pengaturan.situs');
+    Route::put('/situs', [PengaturanSitusController::class, 'update'])->name('pengaturan.situs.simpan');
+    Route::post('/situs/uji-sso', [PengaturanSitusController::class, 'ujiSso'])->name('pengaturan.situs.uji-sso');
     Route::resource('pengguna', PenggunaController::class)->except('show')->parameters(['pengguna' => 'pengguna']);
 });

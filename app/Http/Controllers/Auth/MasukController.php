@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\MasukRequest;
+use App\Services\Sso\SsoClient;
 use App\Support\Settings;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -12,17 +13,23 @@ use Illuminate\Support\Facades\Auth;
 
 class MasukController extends Controller
 {
-    public function form(): View
+    public function form(SsoClient $sso): View
     {
         return view('admin.masuk', [
-            'ssoAktif' => Settings::get('sso_aktif') === '1',
-            'ssoWajib' => Settings::get('sso_wajib') === '1',
+            'ssoAktif' => $sso->tersedia(),
+            'ssoWajib' => $this->ssoWajib($sso),
         ]);
     }
 
-    public function masuk(MasukRequest $request): RedirectResponse
+    /** Wajib SSO hanya berlaku bila SSO benar-benar terkonfigurasi (cegah terkunci). */
+    private function ssoWajib(SsoClient $sso): bool
     {
-        if (Settings::get('sso_wajib') === '1') {
+        return Settings::get('sso_wajib') === '1' && $sso->tersedia();
+    }
+
+    public function masuk(MasukRequest $request, SsoClient $sso): RedirectResponse
+    {
+        if ($this->ssoWajib($sso)) {
             return back()->withErrors(['email' => 'Login kata sandi dinonaktifkan; gunakan SSO.']);
         }
 
@@ -40,11 +47,16 @@ class MasukController extends Controller
         return redirect()->intended(route('admin.dasbor'));
     }
 
-    public function keluar(Request $request): RedirectResponse
+    public function keluar(Request $request, SsoClient $sso): RedirectResponse
     {
+        $idToken = $request->session()->get('sso_id_token');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if (is_string($idToken) && $sso->tersedia()) {
+            return redirect()->away($sso->urlKeluar($idToken, route('admin.masuk')));
+        }
 
         return redirect()->route('admin.masuk');
     }
