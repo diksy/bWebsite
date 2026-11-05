@@ -25,7 +25,7 @@
 - [x] Manajemen pengguna (CRUD, admin saja); SSO penuh = hanya pengguna terdaftar yang bisa masuk
 
 ## Build (migration + model + Form Request + tes Pest + sambung view)
-- [ ] Pondasi: auth (admin/penulis), tabel users+peran, middleware peran, path admin & artikel dinamis (settings)
+- [x] Pondasi: auth (admin/penulis), tabel users+peran, middleware peran, path admin & artikel dinamis (settings)
 - [ ] Pengguna: CRUD admin (Form Request, tes)
 - [ ] SSO opsional BikininSSO (OIDC+PKCE, hanya pengguna terdaftar, back-channel logout)
 - [ ] Pengaturan: tabel settings, API key terenkripsi, uji koneksi AI & Tavily (adapter)
