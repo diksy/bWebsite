@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\DasborController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\LogAiController;
 use App\Http\Controllers\Admin\PengaturanAiController;
 use App\Http\Controllers\Admin\PengaturanSitusController;
 use App\Http\Controllers\Admin\PenggunaController;
@@ -33,6 +34,7 @@ Route::middleware(['auth', 'peran:admin'])->group(function () {
     Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
     Route::post('/tag', [TagController::class, 'store'])->name('tag.store');
     Route::delete('/tag/{tag}', [TagController::class, 'destroy'])->name('tag.destroy');
+    Route::get('/log-ai', LogAiController::class)->name('log-ai');
     Route::get('/pengaturan-ai', [PengaturanAiController::class, 'edit'])->name('pengaturan.ai');
     Route::put('/pengaturan-ai', [PengaturanAiController::class, 'update'])->name('pengaturan.ai.simpan');
     Route::post('/pengaturan-ai/uji-ai', [PengaturanAiController::class, 'ujiAi'])->name('pengaturan.ai.uji-ai');

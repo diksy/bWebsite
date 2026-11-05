@@ -39,5 +39,5 @@
 - [x] Terbit terjadwal (schedule) + ping IndexNow
 - [x] Tema terjadwal (CRUD, batas draf/minggu)
 - [x] Pipeline AI: job per tahap (cari web → ringkas → outline → draf+meta+FAQ), selalu Draf
-- [ ] Log AI (token & error per job) + dashboard
+- [x] Log AI (token & error per job) + dashboard
 - [ ] Cron/queue database untuk cPanel, hapus app/Prototype, cek akhir
