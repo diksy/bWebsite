@@ -121,6 +121,16 @@ class PrototypeController extends Controller
         return $this->admin('proto.admin.situs');
     }
 
+    public function adminPengguna(): View
+    {
+        return $this->admin('proto.admin.pengguna', ['pengguna' => Dummy::pengguna()]);
+    }
+
+    public function adminPenggunaForm(?int $id = null): View
+    {
+        return $this->admin('proto.admin.pengguna-form', ['u' => $id ? (collect(Dummy::pengguna())->firstWhere('id', $id) ?? abort(404)) : null]);
+    }
+
     public function adminLog(): View
     {
         return $this->admin('proto.admin.log', ['log' => Dummy::logAi()]);

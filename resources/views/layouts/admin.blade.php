@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css'])
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
-@php($menu = [['proto.admin','Dashboard'],['proto.admin.artikel','Artikel'],['proto.admin.tema','Tema terjadwal'],['proto.admin.pengaturan','Pengaturan AI'],['proto.admin.log','Log AI'],['proto.admin.situs','Pengaturan situs']])
+@php($menu = [['proto.admin','Dashboard'],['proto.admin.artikel','Artikel'],['proto.admin.tema','Tema terjadwal'],['proto.admin.pengaturan','Pengaturan AI'],['proto.admin.log','Log AI'],['proto.admin.pengguna','Pengguna'],['proto.admin.situs','Pengaturan situs']])
 <div class="md:flex">
     <aside class="bg-slate-900 text-slate-200 md:min-h-screen md:w-56">
         <div class="flex items-center justify-between px-4 py-3 font-bold md:block">{{ $site['nama'] }} <span class="text-xs font-normal text-slate-400">Admin</span></div>

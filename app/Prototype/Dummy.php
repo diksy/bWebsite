@@ -87,4 +87,14 @@ class Dummy
             ['waktu' => '2026-11-04 06:01', 'job' => 'Ringkas sumber', 'tema' => 'Strategi marketing digital', 'token' => 0, 'status' => 'error', 'pesan' => '429 Too Many Requests dari API model'],
         ];
     }
+
+    public static function pengguna(): array
+    {
+        return [
+            ['id' => 1, 'nama' => 'Diksy M. Firmansyah', 'email' => 'diksy@bikinin.id', 'peran' => 'Admin', 'aktif' => true, 'login' => 'SSO', 'terakhir' => '2026-11-05 09:10'],
+            ['id' => 2, 'nama' => 'Sari Wulandari', 'email' => 'sari@storika.id', 'peran' => 'Penulis', 'aktif' => true, 'login' => 'Kata sandi', 'terakhir' => '2026-11-04 15:42'],
+            ['id' => 3, 'nama' => 'Redaksi Storika', 'email' => 'redaksi@storika.id', 'peran' => 'Penulis', 'aktif' => true, 'login' => 'Tidak bisa login (penulis AI)', 'terakhir' => '-'],
+            ['id' => 4, 'nama' => 'Budi Santoso', 'email' => 'budi@storika.id', 'peran' => 'Penulis', 'aktif' => false, 'login' => 'SSO', 'terakhir' => '2026-09-30 11:05'],
+        ];
+    }
 }

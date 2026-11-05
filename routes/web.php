@@ -18,5 +18,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/pengaturan', [PrototypeController::class, 'adminPengaturan'])->name('proto.admin.pengaturan');
     Route::get('/tema', [PrototypeController::class, 'adminTema'])->name('proto.admin.tema');
     Route::get('/situs', [PrototypeController::class, 'adminSitus'])->name('proto.admin.situs');
+    Route::get('/pengguna', [PrototypeController::class, 'adminPengguna'])->name('proto.admin.pengguna');
+    Route::get('/pengguna/baru', [PrototypeController::class, 'adminPenggunaForm'])->name('proto.admin.pengguna.baru');
+    Route::get('/pengguna/{id}/sunting', [PrototypeController::class, 'adminPenggunaForm'])->name('proto.admin.pengguna.sunting');
     Route::get('/log-ai', [PrototypeController::class, 'adminLog'])->name('proto.admin.log');
 });

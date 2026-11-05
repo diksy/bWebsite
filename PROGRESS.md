@@ -20,3 +20,6 @@
 - [x] Path /admin dapat diubah di panel admin
 - [x] Path /artikel dapat diubah di panel admin
 - [x] Opsi integrasi SSO (BikininSSO, opsional) di pengaturan + tombol di login
+
+## Tambahan 2026-11-05
+- [x] Manajemen pengguna (CRUD, admin saja); SSO penuh = hanya pengguna terdaftar yang bisa masuk

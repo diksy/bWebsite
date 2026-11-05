@@ -19,7 +19,7 @@
         <div class="grid gap-3 sm:grid-cols-2"><label class="block text-sm">Client ID<input value="blog-ai-storika" class="mt-1 w-full rounded border px-3 py-2"></label>
         <label class="block text-sm">Client secret <span class="text-slate-400">(terenkripsi)</span><input type="password" value="••••••••••••" class="mt-1 w-full rounded border px-3 py-2"></label></div>
         <div class="rounded bg-slate-50 p-3 text-xs text-slate-600"><b>Daftarkan di admin SSO:</b><br>Redirect login: <code>https://storika.id/sso/callback</code><br>Post-logout: <code>https://storika.id/{{ 'admin' }}/masuk</code><br>Back-channel logout: <code>https://storika.id/sso/backchannel-logout</code></div>
-        <label class="block text-sm">Peran untuk pengguna SSO baru<select class="mt-1 w-full rounded border px-3 py-2"><option>Penulis</option><option>Tidak ada (ditolak sampai disetujui admin)</option></select></label>
+        <div class="rounded bg-sky-50 p-3 text-xs text-sky-900">Pengguna SSO hanya bisa masuk bila emailnya sudah didaftarkan di menu <a class="underline" href="{{ route('proto.admin.pengguna') }}">Pengguna</a>. Akun tidak dibuat otomatis; email yang belum terdaftar atau nonaktif ditolak.</div>
         <label class="flex items-center gap-2 text-sm"><input type="checkbox"> Wajib SSO (sembunyikan login kata sandi)</label>
         <div class="flex items-center gap-3"><button type="button" class="rounded border border-emerald-700 px-4 py-2 text-sm text-emerald-700">Uji koneksi (discovery)</button><span class="text-sm text-emerald-700">✓ Discovery &amp; JWKS terbaca (contoh hasil)</span></div></section>
     <button type="button" class="rounded bg-emerald-700 px-5 py-2 font-medium text-white">Simpan</button>
