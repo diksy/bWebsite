@@ -4,6 +4,7 @@ use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\User;
 use App\Support\Settings;
+use Illuminate\Support\Facades\Artisan;
 
 function jsonLd(string $html): array
 {
@@ -102,4 +103,12 @@ it('robots.txt menutup panel admin dan menunjuk sitemap', function () {
 
 it('halaman publik memuat link RSS di head', function () {
     $this->get('/')->assertSee('application/rss+xml', false);
+});
+
+it('rute dapat di-cache (php artisan optimize saat deploy tidak gagal)', function () {
+    try {
+        expect(Artisan::call('route:cache'))->toBe(0);
+    } finally {
+        Artisan::call('route:clear');
+    }
 });

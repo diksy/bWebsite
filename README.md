@@ -1,58 +1,35 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# blog-ai
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Platform blog satu customer (Laravel, Bahasa Indonesia) dengan prioritas SEO dan penulis AI terjadwal.
+Hasil AI selalu berstatus **Draf** — tidak ada auto-publish.
 
-## About Laravel
+## Ringkas
+- Publik SSR: beranda, artikel, kategori/tag, penulis, pencarian; sitemap.xml, `rss.xml`, robots.txt, canonical, meta/OG, JSON-LD (Article, BreadcrumbList, FAQPage, Person), ping IndexNow saat terbit.
+- Panel (`/admin`, path bisa diganti di *Pengaturan situs*): editor Markdown (Livewire) dengan skor SEO berbasis aturan, saran link internal, unggah gambar → WebP, jadwal terbit; pengguna (admin/penulis); tema terjadwal; pengaturan AI; log AI; login SSO BikininSSO opsional.
+- Penulis AI: pipeline antrean bertahap (cari web → ringkas → outline → draf + meta + FAQ), sumber dicatat.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+## Pemasangan lokal
 ```
+composer install && npm ci && npm run build
+cp env.contoh ke berkas environment, lalu: php artisan key:generate
+php artisan migrate --seed
+php artisan app:buat-admin email@contoh.id "Nama Admin"   # mencetak kata sandi sementara
+php artisan test && vendor/bin/phpstan analyse
+```
+(Berkas contoh environment: `.env.example`.)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## cPanel (shared hosting)
+1. Deploy lewat `kantor-deploy staging` (rsync; `php artisan migrate --force` + `optimize` dijalankan otomatis).
+2. Buat berkas environment di server (tidak ikut deploy): `APP_KEY`, `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL`, kredensial DB, `QUEUE_CONNECTION=database`, `SESSION_DRIVER=database`, `CACHE_STORE=database`.
+3. Docroot domain harus `public_html`; repo menyertakan symlink `public_html → public` dan `public/storage → ../storage/app/public`.
+4. Pertama kali: `php artisan migrate --seed` lalu `php artisan app:buat-admin ...` (lewat Terminal cPanel).
+5. Satu cron (tiap menit):
+   `* * * * * cd /home/USER/folder-aplikasi && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1`
+   `schedule:run` sudah menjalankan `queue:work --stop-when-empty` (antrean database), terbit terjadwal, dan tema AI per jam.
+6. Setelah mengubah path admin/artikel di panel, cache rute dibangun ulang otomatis.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Catatan operasional
+- Job AI dipecah satu panggilan per tahap (timeout 120 dtk, 2 percobaan) agar aman dari batas waktu hosting.
+- Konversi WebP memakai ekstensi **GD** dengan dukungan WebP (cek `php -m`).
+- IndexNow aktif otomatis hanya di `APP_ENV=production`; bisa diatur di *Pengaturan situs*.
+- API key (AI, pencarian, SSO) disimpan terenkripsi dengan `APP_KEY` — jangan ganti `APP_KEY` tanpa mengisi ulang key.

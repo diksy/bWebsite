@@ -218,3 +218,22 @@ it('job BuatDraf tidak berisi jalur penerbitan otomatis', function () {
     $sumber = file_get_contents((new ReflectionClass(BuatDraf::class))->getFileName());
     expect($sumber)->not->toContain('Artikel::TERBIT')->not->toContain("'terbit'");
 });
+
+it('log-ai:bersihkan menghapus data lama saja', function () {
+    $lama = AiRun::create(['status' => 'selesai', 'created_at' => now()->subDays(200)]);
+    AiLog::create(['ai_run_id' => $lama->id, 'tahap' => 'draf', 'status' => 'ok', 'created_at' => now()->subDays(200)]);
+    $baru = AiRun::create(['status' => 'selesai']);
+    AiLog::create(['ai_run_id' => $baru->id, 'tahap' => 'draf', 'status' => 'ok']);
+
+    $this->artisan('log-ai:bersihkan')->assertSuccessful();
+
+    expect(AiRun::count())->toBe(1)->and(AiLog::count())->toBe(1);
+});
+
+it('scheduler memuat antrean database, terbit terjadwal, dan tema', function () {
+    $this->artisan('schedule:list')
+        ->expectsOutputToContain('queue:work')
+        ->expectsOutputToContain('artikel:terbitkan-terjadwal')
+        ->expectsOutputToContain('tema:jalankan')
+        ->assertSuccessful();
+});

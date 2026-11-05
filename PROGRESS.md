@@ -40,4 +40,4 @@
 - [x] Tema terjadwal (CRUD, batas draf/minggu)
 - [x] Pipeline AI: job per tahap (cari web → ringkas → outline → draf+meta+FAQ), selalu Draf
 - [x] Log AI (token & error per job) + dashboard
-- [ ] Cron/queue database untuk cPanel, hapus app/Prototype, cek akhir
+- [x] Cron/queue database untuk cPanel, hapus app/Prototype, cek akhir

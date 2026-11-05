@@ -6,6 +6,7 @@ use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\Tag;
 use App\Models\User;
+use App\Services\Seo\IndexNow;
 use App\Support\Settings;
 use App\Support\Situs;
 use Illuminate\Http\Response;
@@ -61,6 +62,14 @@ class SeoController extends Controller
         ]);
 
         return response($isi, 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=3600']);
+    }
+
+    /** File kunci IndexNow: hanya melayani kunci yang benar. */
+    public function kunciIndexNow(string $kunci, IndexNow $indexNow): Response
+    {
+        abort_unless(hash_equals($indexNow->kunci(), $kunci), 404);
+
+        return response($kunci, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }
 
     private function xml(string $isi, string $tipe): Response
