@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DasborController;
+use App\Http\Controllers\Admin\PenggunaController;
 use App\Http\Controllers\Auth\MasukController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,4 +14,8 @@ Route::post('/keluar', [MasukController::class, 'keluar'])->middleware('auth')->
 
 Route::middleware(['auth', 'peran:admin,penulis'])->group(function () {
     Route::get('/', DasborController::class)->name('dasbor');
+});
+
+Route::middleware(['auth', 'peran:admin'])->group(function () {
+    Route::resource('pengguna', PenggunaController::class)->except('show')->parameters(['pengguna' => 'pengguna']);
 });
