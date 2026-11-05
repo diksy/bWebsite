@@ -1,7 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrototypeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PrototypeController::class, 'home'])->name('proto.home');

@@ -1,7 +1,7 @@
 # blog-ai — Progres
 
 ## Prototype (data dummy, Blade + Tailwind)
-- [ ] Layout dasar + navigasi publik (mobile)
+- [x] Layout dasar + navigasi publik (mobile)
 - [ ] Beranda
 - [ ] Halaman artikel (FAQ, penulis, breadcrumb)
 - [ ] Kategori / tag
