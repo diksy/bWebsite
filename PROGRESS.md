@@ -4,7 +4,7 @@
 - [x] Layout dasar + navigasi publik (mobile)
 - [x] Beranda
 - [x] Halaman artikel (FAQ, penulis, breadcrumb)
-- [ ] Kategori / tag
+- [x] Kategori / tag
 - [x] Halaman penulis
 - [x] Pencarian
 - [ ] Login (admin + penulis)
