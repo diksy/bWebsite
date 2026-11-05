@@ -23,3 +23,21 @@
 
 ## Tambahan 2026-11-05
 - [x] Manajemen pengguna (CRUD, admin saja); SSO penuh = hanya pengguna terdaftar yang bisa masuk
+
+## Build (migration + model + Form Request + tes Pest + sambung view)
+- [ ] Pondasi: auth (admin/penulis), tabel users+peran, middleware peran, path admin & artikel dinamis (settings)
+- [ ] Pengguna: CRUD admin (Form Request, tes)
+- [ ] SSO opsional BikininSSO (OIDC+PKCE, hanya pengguna terdaftar, back-channel logout)
+- [ ] Pengaturan: tabel settings, API key terenkripsi, uji koneksi AI & Tavily (adapter)
+- [ ] Kategori, tag, penulis (profil) + seeder
+- [ ] Artikel: model, status draf/terjadwal/terbit, editor Markdown, FAQ, sumber
+- [ ] Upload gambar → WebP
+- [ ] Skor SEO berbasis aturan + saran link internal
+- [ ] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
+- [ ] Pencarian
+- [ ] SEO teknis: meta/OG, canonical, JSON-LD, sitemap.xml, RSS, robots, redirect path lama
+- [ ] Terbit terjadwal (schedule) + ping IndexNow
+- [ ] Tema terjadwal (CRUD, batas draf/minggu)
+- [ ] Pipeline AI: job per tahap (cari web → ringkas → outline → draf+meta+FAQ), selalu Draf
+- [ ] Log AI (token & error per job) + dashboard
+- [ ] Cron/queue database untuk cPanel, hapus app/Prototype, cek akhir
