@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SimpanSitusRequest;
+use App\Services\Seo\IndexNow;
 use App\Services\Sso\SsoClient;
 use App\Support\Settings;
 use Illuminate\Contracts\View\View;
@@ -13,9 +14,10 @@ use Throwable;
 
 class PengaturanSitusController extends Controller
 {
-    public function edit(): View
+    public function edit(IndexNow $indexNow): View
     {
         return view('admin.situs', [
+            'indexnow_aktif' => $indexNow->aktif(),
             'nama_situs' => Settings::get('nama_situs', config('app.name')),
             'tagline' => Settings::get('tagline', ''),
             'admin_path' => Settings::get('admin_path', 'admin'),
@@ -42,6 +44,7 @@ class PengaturanSitusController extends Controller
 
         Settings::set('nama_situs', $d['nama_situs']);
         Settings::set('tagline', $d['tagline'] ?? '');
+        Settings::set('indexnow_aktif', $d['indexnow_aktif'] ? '1' : '0');
         Settings::set('admin_path', $d['admin_path']);
         Settings::set('artikel_path', $d['artikel_path'] ?? '');
         if (($d['artikel_path'] ?? '') !== (string) $artikelLama) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\KirimIndexNow;
 use App\Support\Markdown;
 use App\Support\Settings;
 use Database\Factories\ArtikelFactory;
@@ -45,6 +46,18 @@ class Artikel extends Model
                 $a->slug = static::slugUnik($a->judul, $a->id);
             }
             $a->isi_html = Markdown::render((string) $a->isi);
+        });
+
+        // Baru terbit (dibuat langsung terbit, atau status berubah menjadi terbit) → ping IndexNow via antrean.
+        static::created(function (Artikel $a): void {
+            if ($a->status === self::TERBIT) {
+                KirimIndexNow::dispatch($a->id)->afterCommit();
+            }
+        });
+        static::updated(function (Artikel $a): void {
+            if ($a->status === self::TERBIT && $a->wasChanged('status')) {
+                KirimIndexNow::dispatch($a->id)->afterCommit();
+            }
         });
     }
 

@@ -210,13 +210,19 @@ class ArtikelEditor extends Component
         $gambarLama = $artikel->gambar;
         Gate::authorize('kelola', $artikel->exists ? $artikel : new Artikel(['user_id' => auth()->id()]));
 
+        // "Terbit" dengan tanggal di masa depan = terjadwal.
+        $statusAkhir = $this->status;
+        if ($statusAkhir === Artikel::TERBIT && $this->terbit_pada !== '' && Carbon::parse($this->terbit_pada)->isFuture()) {
+            $statusAkhir = Artikel::TERJADWAL;
+        }
+
         $terbitPada = match ($this->status) {
             Artikel::TERBIT => $this->terbit_pada !== '' ? Carbon::parse($this->terbit_pada) : ($artikel->terbit_pada ?? now()),
             Artikel::TERJADWAL => Carbon::parse($this->terbit_pada),
             default => $this->terbit_pada !== '' ? Carbon::parse($this->terbit_pada) : null,
         };
 
-        DB::transaction(function () use ($artikel, $terbitPada): void {
+        DB::transaction(function () use ($artikel, $terbitPada, $statusAkhir): void {
             $artikel->fill([
                 'user_id' => $this->userId,
                 'judul' => $this->judul,
@@ -227,7 +233,7 @@ class ArtikelEditor extends Component
                 'kategori_id' => $this->kategori_id,
                 'gambar' => $this->gambar,
                 'gambar_alt' => $this->gambar_alt ?: null,
-                'status' => $this->status,
+                'status' => $statusAkhir,
                 'terbit_pada' => $terbitPada,
                 'faq' => collect($this->faq)->filter(fn ($f) => filled($f['q']) && filled($f['a']))->values()->all(),
             ])->save();

@@ -6,6 +6,9 @@
     <section class="space-y-3 rounded-xl bg-white p-5 shadow-sm"><h2 class="font-bold">Identitas situs</h2>
         <label class="block text-sm">Nama situs<input name="nama_situs" value="{{ old('nama_situs', $nama_situs) }}" class="mt-1 w-full rounded border px-3 py-2"></label>
         <label class="block text-sm">Tagline / deskripsi singkat<input name="tagline" value="{{ old('tagline', $tagline) }}" class="mt-1 w-full rounded border px-3 py-2"></label></section>
+    <section class="space-y-2 rounded-xl bg-white p-5 shadow-sm"><h2 class="font-bold">IndexNow</h2>
+        <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="indexnow_aktif" value="1" @checked(old('indexnow_aktif', $indexnow_aktif))> Ping mesin pencari saat artikel terbit</label>
+        <p class="text-xs text-slate-500">Aktifkan hanya di situs produksi. Kunci dibuat otomatis dan dilayani di <code>/{kunci}.txt</code>.</p></section>
     <section class="space-y-3 rounded-xl bg-white p-5 shadow-sm"><h2 class="font-bold">Path panel admin</h2>
         <div class="flex items-center rounded border"><span class="px-3 text-slate-400">{{ url('/') }}/</span><input name="admin_path" value="{{ old('admin_path', $admin_path) }}" class="w-full px-2 py-2 outline-none"></div>
         <p class="text-sm text-slate-500">Huruf kecil, angka, tanda hubung. Tidak boleh memakai nama yang dicadangkan (cari, tag, kategori, penulis, feed, sitemap.xml, dst.).</p>

@@ -36,7 +36,7 @@
 - [x] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
 - [x] Pencarian
 - [x] SEO teknis: meta/OG, canonical, JSON-LD, sitemap.xml, RSS, robots, redirect path lama
-- [ ] Terbit terjadwal (schedule) + ping IndexNow
+- [x] Terbit terjadwal (schedule) + ping IndexNow
 - [ ] Tema terjadwal (CRUD, batas draf/minggu)
 - [ ] Pipeline AI: job per tahap (cari web → ringkas → outline → draf+meta+FAQ), selalu Draf
 - [ ] Log AI (token & error per job) + dashboard

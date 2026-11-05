@@ -28,6 +28,7 @@ class SimpanSitusRequest extends FormRequest
             'tagline' => ['nullable', 'string', 'max:140'],
             'admin_path' => ['required', ...$slugPath],
             'artikel_path' => ['nullable', ...$slugPath, 'different:admin_path'],
+            'indexnow_aktif' => ['boolean'],
             'sso_aktif' => ['boolean'],
             'sso_wajib' => ['boolean'],
             'sso_base_url' => ['nullable', 'url:https', 'max:190'],
@@ -54,6 +55,7 @@ class SimpanSitusRequest extends FormRequest
         $this->merge([
             'admin_path' => strtolower(trim((string) $this->input('admin_path'), '/ ')),
             'artikel_path' => strtolower(trim((string) $this->input('artikel_path'), '/ ')) ?: null,
+            'indexnow_aktif' => $this->boolean('indexnow_aktif'),
             'sso_aktif' => $this->boolean('sso_aktif'),
             'sso_wajib' => $this->boolean('sso_wajib'),
         ]);

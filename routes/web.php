@@ -3,6 +3,7 @@
 use App\Http\Controllers\PublikController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SsoController;
+use App\Services\Seo\IndexNow;
 use App\Support\Settings;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,11 @@ Route::prefix('sso')->name('admin.sso.')->group(function () {
 // SEO teknis
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
 Route::get('/rss.xml', [SeoController::class, 'rss'])->name('rss');
+Route::get('/{kunci}.txt', function (string $kunci, IndexNow $indexNow) {
+    abort_unless(hash_equals($indexNow->kunci(), $kunci), 404);
+
+    return response($kunci, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
+})->where('kunci', '[a-f0-9]{32}')->name('indexnow-kunci');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 
 // Halaman publik
