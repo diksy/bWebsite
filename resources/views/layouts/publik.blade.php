@@ -13,11 +13,11 @@
         <nav class="hidden gap-6 text-sm font-medium md:flex">
             <a href="{{ route('proto.home') }}" class="hover:text-emerald-700">Beranda</a>
             @foreach ($kategori as $k)
-                <a href="#" class="hover:text-emerald-700">{{ $k['nama'] }}</a>
+                <a href="{{ route('proto.kategori', $k['slug']) }}" class="hover:text-emerald-700">{{ $k['nama'] }}</a>
             @endforeach
         </nav>
-        <form action="#" class="hidden md:block">
-            <input type="search" placeholder="Cari artikel…" class="rounded-full border border-slate-300 px-4 py-1.5 text-sm">
+        <form action="{{ route('proto.cari') }}" class="hidden md:block">
+            <input type="search" name="q" placeholder="Cari artikel…" class="rounded-full border border-slate-300 px-4 py-1.5 text-sm">
         </form>
     </div>
     <details class="border-t border-slate-100 md:hidden">
@@ -25,9 +25,9 @@
         <div class="flex flex-col gap-2 px-4 pb-3 text-sm">
             <a href="{{ route('proto.home') }}">Beranda</a>
             @foreach ($kategori as $k)
-                <a href="#">{{ $k['nama'] }}</a>
+                <a href="{{ route('proto.kategori', $k['slug']) }}">{{ $k['nama'] }}</a>
             @endforeach
-            <input type="search" placeholder="Cari artikel…" class="rounded-full border border-slate-300 px-4 py-1.5">
+            <form action="{{ route('proto.cari') }}"><input type="search" name="q" placeholder="Cari artikel…" class="w-full rounded-full border border-slate-300 px-4 py-1.5"></form>
         </div>
     </details>
 </header>

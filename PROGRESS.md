@@ -2,11 +2,11 @@
 
 ## Prototype (data dummy, Blade + Tailwind)
 - [x] Layout dasar + navigasi publik (mobile)
-- [ ] Beranda
-- [ ] Halaman artikel (FAQ, penulis, breadcrumb)
+- [x] Beranda
+- [x] Halaman artikel (FAQ, penulis, breadcrumb)
 - [ ] Kategori / tag
-- [ ] Halaman penulis
-- [ ] Pencarian
+- [x] Halaman penulis
+- [x] Pencarian
 - [ ] Login (admin + penulis)
 - [ ] Dashboard admin
 - [ ] Daftar artikel + filter status
