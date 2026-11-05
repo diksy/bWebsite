@@ -1,0 +1,2 @@
+/* Gaya: Glassmorphism */
+:root{--g-bg:linear-gradient(135deg,#6366f1,#ec4899 55%,#f59e0b);--g-fg:#fff;--g-muted:rgba(255,255,255,.78);--g-accent:rgba(255,255,255,.28);--g-accent-fg:#fff;--g-surface:rgba(255,255,255,.16);--g-border:rgba(255,255,255,.4);--g-border-w:1px;--g-radius:1.25rem;--g-shadow:0 8px 32px rgba(31,38,135,.25);--g-font:ui-sans-serif,system-ui,sans-serif;--g-heading-weight:700;--g-blur:14px}

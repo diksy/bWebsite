@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\LogAiController;
 use App\Http\Controllers\Admin\PengaturanAiController;
 use App\Http\Controllers\Admin\PengaturanSitusController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\PrototypeTampilanController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TemaController;
 use App\Http\Controllers\Auth\MasukController;
@@ -42,6 +43,8 @@ Route::middleware(['auth', 'peran:admin'])->group(function () {
     Route::get('/situs', [PengaturanSitusController::class, 'edit'])->name('pengaturan.situs');
     Route::put('/situs', [PengaturanSitusController::class, 'update'])->name('pengaturan.situs.simpan');
     Route::post('/situs/uji-sso', [PengaturanSitusController::class, 'ujiSso'])->name('pengaturan.situs.uji-sso');
+    Route::get('/tampilan', [PrototypeTampilanController::class, 'index'])->name('tampilan');
+    Route::get('/tampilan/preview/{gaya}/{halaman?}', [PrototypeTampilanController::class, 'preview'])->name('tampilan.preview');
     Route::post('/tema/{tema}/jalankan', [TemaController::class, 'jalankan'])->name('tema.jalankan');
     Route::resource('tema', TemaController::class)->except('show')->parameters(['tema' => 'tema']);
     Route::resource('pengguna', PenggunaController::class)->except('show')->parameters(['pengguna' => 'pengguna']);

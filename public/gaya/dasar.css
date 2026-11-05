@@ -1,0 +1,19 @@
+/* Struktur umum situs publik. Semua tampilan memakai variabel --g-* dari berkas gaya. */
+*{box-sizing:border-box}
+body.g-body{margin:0;min-height:100vh;background:var(--g-bg);background-attachment:fixed;color:var(--g-fg);font-family:var(--g-font);line-height:1.65}
+.g-wrap{max-width:64rem;margin:0 auto;padding:0 1rem}
+.g-header{padding:1rem 0;border-bottom:var(--g-border-w) solid var(--g-border)}
+.g-header .g-wrap{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+.g-brand{font-size:1.4rem;font-weight:var(--g-heading-weight);color:var(--g-fg);text-decoration:none}
+.g-nav{display:flex;flex-wrap:wrap;gap:1rem;font-size:.9rem}.g-nav a{color:var(--g-fg);text-decoration:none;font-weight:600}
+.g-main{padding:2rem 0}
+.g-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr))}
+.g-card{background:var(--g-surface);border:var(--g-border-w) solid var(--g-border);border-radius:var(--g-radius);box-shadow:var(--g-shadow);padding:1.25rem;-webkit-backdrop-filter:blur(var(--g-blur));backdrop-filter:blur(var(--g-blur))}
+.g-card h2,.g-card h3{margin:.4rem 0;font-weight:var(--g-heading-weight);line-height:1.25}
+.g-meta{font-size:.8rem;color:var(--g-muted)}
+.g-badge{display:inline-block;background:var(--g-accent);color:var(--g-accent-fg);border:var(--g-border-w) solid var(--g-border);border-radius:var(--g-radius);padding:.1rem .6rem;font-size:.75rem;font-weight:700}
+.g-btn{display:inline-block;background:var(--g-accent);color:var(--g-accent-fg);border:var(--g-border-w) solid var(--g-border);border-radius:var(--g-radius);box-shadow:var(--g-shadow);padding:.5rem 1.1rem;font-weight:700;text-decoration:none}
+.g-title{font-size:2rem;font-weight:var(--g-heading-weight);line-height:1.2;margin:.5rem 0}
+.g-prose{max-width:42rem}.g-prose h2{font-weight:var(--g-heading-weight);margin-top:2rem}
+.g-prose blockquote{margin:1rem 0;padding:.5rem 1rem;border-left:calc(var(--g-border-w)*3) solid var(--g-accent)}
+.g-footer{padding:1.5rem 0;border-top:var(--g-border-w) solid var(--g-border);text-align:center;font-size:.85rem;color:var(--g-muted)}

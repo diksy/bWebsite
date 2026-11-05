@@ -1,0 +1,24 @@
+/*
+ * TEMPLATE GAYA KUSTOM — blog-ai
+ * Cara pakai: ubah nilai variabel di bawah, simpan sebagai .css, lalu unggah di Admin > Tampilan.
+ * Aturan: maks. 100 KB; tanpa @import, url() ke situs lain, expression(), atau <script>.
+ * Struktur halaman (class .g-*) sudah ditangani berkas dasar; Anda cukup mengatur token + (opsional) aturan tambahan.
+ */
+:root{
+  --g-bg:#ffffff;          /* latar halaman (warna atau gradient) */
+  --g-fg:#1e293b;          /* warna teks utama */
+  --g-muted:#64748b;       /* teks sekunder (tanggal, penulis) */
+  --g-accent:#047857;      /* warna aksen: tombol, lencana, kutipan */
+  --g-accent-fg:#ffffff;   /* teks di atas warna aksen */
+  --g-surface:#ffffff;     /* latar kartu artikel */
+  --g-border:#e2e8f0;      /* warna garis */
+  --g-border-w:1px;        /* tebal garis (neo brutalism memakai 3px) */
+  --g-radius:.5rem;        /* kelengkungan sudut */
+  --g-shadow:none;         /* bayangan kartu, mis. 6px 6px 0 #000 */
+  --g-font:ui-sans-serif,system-ui,sans-serif; /* jenis huruf (font sistem saja) */
+  --g-heading-weight:700;  /* ketebalan judul */
+  --g-blur:0px;            /* efek kaca; isi 14px untuk glassmorphism */
+}
+/* Aturan tambahan (opsional), contoh: judul artikel huruf kapital
+.g-title{text-transform:uppercase}
+*/

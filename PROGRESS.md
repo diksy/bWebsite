@@ -46,10 +46,10 @@
 Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu berkas `.css` (variabel desain + override) yang dibersihkan sebelum dipakai.
 
 ### Prototype (data dummy)
-- [ ] Admin: halaman "Tampilan" — pilih gaya (kartu preview: Minimalis [default], Neo Brutalism, Glassmorphism, + gaya kustom terunggah), tombol Terapkan
-- [ ] Preview publik (beranda + artikel) per gaya lewat `?gaya=` dummy, untuk 3 gaya bawaan
-- [ ] Admin: unggah gaya kustom (form, daftar gaya, hapus) + unduh template CSS contoh beranotasi
-- [ ] Tautan menu "Tampilan" di panel; tampilan mobile
+- [x] Admin: halaman "Tampilan" — pilih gaya (kartu preview: Minimalis [default], Neo Brutalism, Glassmorphism, + gaya kustom terunggah), tombol Terapkan
+- [x] Preview publik (beranda + artikel) per gaya lewat `?gaya=` dummy, untuk 3 gaya bawaan
+- [x] Admin: unggah gaya kustom (form, daftar gaya, hapus) + unduh template CSS contoh beranotasi
+- [x] Tautan menu "Tampilan" di panel; tampilan mobile
 
 ### Build (setelah /setuju prototype)
 - [ ] Migration/model gaya + setelan gaya aktif; gaya bawaan sebagai berkas CSS dengan variabel (token) desain

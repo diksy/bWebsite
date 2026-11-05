@@ -1,0 +1,2 @@
+/* Gaya: Minimalis (default). Ubah nilai variabel di :root untuk menyesuaikan. */
+:root{--g-bg:#fff;--g-fg:#1e293b;--g-muted:#64748b;--g-accent:#047857;--g-accent-fg:#fff;--g-surface:#fff;--g-border:#e2e8f0;--g-border-w:1px;--g-radius:.5rem;--g-shadow:none;--g-font:ui-sans-serif,system-ui,sans-serif;--g-heading-weight:700;--g-blur:0px}

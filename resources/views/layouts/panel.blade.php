@@ -18,6 +18,7 @@
         ['admin.pengaturan.ai', 'Pengaturan AI', true],
         ['admin.log-ai', 'Log AI', true],
         ['admin.pengguna.index', 'Pengguna', true],
+        ['admin.tampilan', 'Tampilan', true],
         ['admin.pengaturan.situs', 'Pengaturan situs', true],
     ])->filter(fn ($m) => Route::has($m[0]) && (! $m[2] || auth()->user()?->isAdmin()));
 @endphp
