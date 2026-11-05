@@ -51,10 +51,13 @@ Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu 
 - [x] Admin: unggah gaya kustom (form, daftar gaya, hapus) + unduh template CSS contoh beranotasi
 - [x] Tautan menu "Tampilan" di panel; tampilan mobile
 
-### Build (setelah /setuju prototype)
-- [ ] Migration/model gaya + setelan gaya aktif; gaya bawaan sebagai berkas CSS dengan variabel (token) desain
-- [ ] Layout publik memuat CSS gaya aktif; Form Request unggah (ukuran, ekstensi, sanitasi: tanpa @import/url eksternal/expression)
-- [ ] Template contoh dapat diunduh; tes Pest (pilih gaya, unggah valid/invalid, sanitasi, default minimalis)
+### Build
+- [ ] Migration + model `GayaKustom` (nama, slug, berkas, ukuran) + kunci setelan `gaya_aktif` (default `minimalis`) via Settings; tes Pest
+- [ ] Service `Gaya/Sanitasi` (tolak @import, url() eksternal, expression(), <script>, ukuran >100 KB) + Form Request unggah; tes Pest (valid/invalid)
+- [ ] Controller `Admin/TampilanController` (index, terapkan, unggah, hapus) menggantikan prototype; tes Pest
+- [ ] Layout publik memuat `dasar.css` + CSS gaya aktif (bawaan di `public/gaya`, kustom di storage publik); fallback ke minimalis; tes Pest
+- [ ] Pratinjau memakai gaya & data nyata; template contoh diunduh; hapus `app/Prototype` + `PrototypeTampilanController`
+- [ ] README (bagian Tampilan), Pint + Larastan + tes penuh
 
 ## Revisi 2026-11-05 (UAT siklus 2)
 - [x] Bug: `@livewireStyles` / `@livewire(...)` tampil sebagai teks di staging — provider Livewire didaftarkan eksplisit di `bootstrap/providers.php` (cache discovery server basi) + tes
