@@ -7,7 +7,7 @@ beforeEach(fn () => $this->admin = User::factory()->create(['peran' => 'admin'])
 
 function dataSitus(array $ganti = []): array
 {
-    return $ganti + ['admin_path' => 'admin', 'artikel_path' => 'artikel'];
+    return $ganti + ['nama_situs' => 'Storika', 'admin_path' => 'admin', 'artikel_path' => 'artikel'];
 }
 
 it('hanya admin yang boleh membuka pengaturan situs', function () {
@@ -24,7 +24,7 @@ it('menyimpan path artikel baru dan mencatat path lama untuk redirect', function
 
 it('mengizinkan path artikel kosong', function () {
     $this->actingAs($this->admin)->put('/admin/situs', dataSitus(['artikel_path' => '']))->assertSessionHasNoErrors();
-    expect(Settings::get('artikel_path'))->toBeNull();
+    expect(Settings::get('artikel_path'))->toBe('');
 });
 
 it('menolak path tidak valid, dicadangkan, atau bentrok', function (array $input, string $kolom) {

@@ -33,8 +33,8 @@
 - [x] Artikel: model, status draf/terjadwal/terbit, editor Markdown, FAQ, sumber
 - [x] Upload gambar → WebP
 - [x] Skor SEO berbasis aturan + saran link internal
-- [ ] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
-- [ ] Pencarian
+- [x] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
+- [x] Pencarian
 - [ ] SEO teknis: meta/OG, canonical, JSON-LD, sitemap.xml, RSS, robots, redirect path lama
 - [ ] Terbit terjadwal (schedule) + ping IndexNow
 - [ ] Tema terjadwal (CRUD, batas draf/minggu)

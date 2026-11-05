@@ -6,6 +6,7 @@ use Database\Factories\TagFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 #[Fillable(['nama', 'slug'])]
@@ -21,5 +22,11 @@ class Tag extends Model
         static::saving(function (Tag $t): void {
             $t->slug = Str::slug($t->slug ?: $t->nama);
         });
+    }
+
+    /** @return BelongsToMany<Artikel, $this> */
+    public function artikel(): BelongsToMany
+    {
+        return $this->belongsToMany(Artikel::class, 'artikel_tag');
     }
 }

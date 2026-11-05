@@ -38,7 +38,7 @@ final class Settings
     public static function get(string $key, ?string $default = null): ?string
     {
         $row = self::load()[$key] ?? null;
-        if ($row === null || $row['value'] === null || $row['value'] === '') {
+        if ($row === null || $row['value'] === null) {
             return $default;
         }
 
@@ -55,7 +55,7 @@ final class Settings
 
     public static function has(string $key): bool
     {
-        return self::get($key) !== null;
+        return filled(self::get($key));
     }
 
     public static function set(string $key, ?string $value, bool $encrypted = false): void

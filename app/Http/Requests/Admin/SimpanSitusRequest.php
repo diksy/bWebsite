@@ -24,6 +24,8 @@ class SimpanSitusRequest extends FormRequest
         $slugPath = ['regex:/^[a-z0-9]+(-[a-z0-9]+)*$/', 'max:40', Rule::notIn(self::DICADANGKAN)];
 
         return [
+            'nama_situs' => ['required', 'string', 'max:60'],
+            'tagline' => ['nullable', 'string', 'max:140'],
             'admin_path' => ['required', ...$slugPath],
             'artikel_path' => ['nullable', ...$slugPath, 'different:admin_path'],
             'sso_aktif' => ['boolean'],

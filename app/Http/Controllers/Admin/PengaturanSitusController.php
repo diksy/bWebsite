@@ -16,6 +16,8 @@ class PengaturanSitusController extends Controller
     public function edit(): View
     {
         return view('admin.situs', [
+            'nama_situs' => Settings::get('nama_situs', config('app.name')),
+            'tagline' => Settings::get('tagline', ''),
             'admin_path' => Settings::get('admin_path', 'admin'),
             'artikel_path' => Settings::get('artikel_path', 'artikel'),
             'sso' => [
@@ -38,6 +40,8 @@ class PengaturanSitusController extends Controller
         $adminLama = Settings::get('admin_path', 'admin');
         $artikelLama = Settings::get('artikel_path', 'artikel');
 
+        Settings::set('nama_situs', $d['nama_situs']);
+        Settings::set('tagline', $d['tagline'] ?? '');
         Settings::set('admin_path', $d['admin_path']);
         Settings::set('artikel_path', $d['artikel_path'] ?? '');
         if (($d['artikel_path'] ?? '') !== (string) $artikelLama) {
