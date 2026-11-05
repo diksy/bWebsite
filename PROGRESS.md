@@ -31,7 +31,7 @@
 - [x] Pengaturan: tabel settings, API key terenkripsi, uji koneksi AI & Tavily (adapter)
 - [x] Kategori, tag, penulis (profil) + seeder
 - [x] Artikel: model, status draf/terjadwal/terbit, editor Markdown, FAQ, sumber
-- [ ] Upload gambar → WebP
+- [x] Upload gambar → WebP
 - [ ] Skor SEO berbasis aturan + saran link internal
 - [ ] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
 - [ ] Pencarian

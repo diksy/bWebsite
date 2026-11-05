@@ -23,6 +23,15 @@
             @if ($daftarPenulis->isNotEmpty())<label class="block text-sm">Penulis<select wire:model="userId" class="mt-1 w-full rounded border px-2 py-1.5">@foreach ($daftarPenulis as $p)<option value="{{ $p->id }}">{{ $p->name }}</option>@endforeach</select></label>@endif
             <div class="text-sm">Tag<div class="mt-1 flex flex-wrap gap-2">@foreach ($daftarTag as $t)<label class="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5"><input type="checkbox" wire:model="tagIds" value="{{ $t->id }}"> #{{ $t->nama }}</label>@endforeach</div></div>
             <button class="w-full rounded bg-emerald-700 py-2 font-medium text-white">Simpan</button></div>
-        {{-- Panel SEO, gambar: langkah berikutnya --}}
+        <div class="space-y-3 rounded-xl bg-white p-4 shadow-sm"><b>Gambar unggulan</b>
+            @if ($gambar)<img src="{{ Storage::disk('public')->url($gambar) }}" alt="{{ $gambar_alt }}" class="aspect-video w-full rounded object-cover">
+                <input wire:model="gambar_alt" placeholder="Teks alt (deskripsi gambar)" class="w-full rounded border px-2 py-1 text-sm">
+                <button type="button" wire:click="hapusGambar" class="text-xs text-red-600">Hapus gambar</button>
+            @endif
+            <label class="block cursor-pointer rounded border-2 border-dashed border-slate-300 p-4 text-center text-sm text-slate-500">Unggah gambar (otomatis jadi WebP, maks. 5 MB)<input type="file" wire:model="gambarBaru" accept="image/*" class="hidden"></label>
+            <label class="block cursor-pointer text-center text-xs text-emerald-700">+ Sisipkan gambar ke isi artikel<input type="file" wire:model="gambarSisip" accept="image/*" class="hidden"></label>
+            <div wire:loading wire:target="gambarBaru,gambarSisip" class="text-xs text-slate-500">Memproses gambar…</div>
+            @error('gambarBaru')<div class="text-xs text-red-600">{{ $message }}</div>@enderror @error('gambarSisip')<div class="text-xs text-red-600">{{ $message }}</div>@enderror</div>
+        {{-- Panel SEO: langkah berikutnya --}}
     </aside>
 </form>

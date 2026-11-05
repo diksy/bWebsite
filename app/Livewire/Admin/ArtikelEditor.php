@@ -6,16 +6,23 @@ use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\Tag;
 use App\Models\User;
+use App\Services\Gambar\Pengonversi;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
+use Throwable;
 
 class ArtikelEditor extends Component
 {
+    use WithFileUploads;
+
     public ?int $artikelId = null;
 
     public int $userId = 0;
@@ -47,6 +54,14 @@ class ArtikelEditor extends Component
 
     public bool $dibuatAi = false;
 
+    public ?string $gambar = null;
+
+    public string $gambar_alt = '';
+
+    public ?TemporaryUploadedFile $gambarBaru = null;
+
+    public ?TemporaryUploadedFile $gambarSisip = null;
+
     public function mount(?Artikel $artikel = null): void
     {
         $user = auth()->user();
@@ -68,6 +83,8 @@ class ArtikelEditor extends Component
             $this->faq = $artikel->faq ?? [];
             $this->sumber = $artikel->sumber ?? [];
             $this->dibuatAi = $artikel->dibuat_ai;
+            $this->gambar = $artikel->gambar;
+            $this->gambar_alt = (string) $artikel->gambar_alt;
         }
     }
 
@@ -90,6 +107,7 @@ class ArtikelEditor extends Component
             'faq' => ['array', 'max:10'],
             'faq.*.q' => ['nullable', 'string', 'max:200'],
             'faq.*.a' => ['nullable', 'string', 'max:1000'],
+            'gambar_alt' => ['nullable', 'string', 'max:160'],
             'userId' => [Rule::exists('users', 'id')->where('is_active', true)],
         ];
     }
@@ -103,6 +121,53 @@ class ArtikelEditor extends Component
             'isi.required' => 'Isi artikel wajib diisi sebelum dijadwalkan/diterbitkan.',
             'slug.regex' => 'Slug hanya huruf kecil, angka, dan tanda hubung.',
         ];
+    }
+
+    public function updatedGambarBaru(Pengonversi $konversi): void
+    {
+        $path = $this->prosesUnggahan($this->gambarBaru, $konversi, 'gambarBaru');
+        $this->gambarBaru = null;
+        if ($path !== null) {
+            $this->gambar = $path;
+        }
+    }
+
+    public function updatedGambarSisip(Pengonversi $konversi): void
+    {
+        $path = $this->prosesUnggahan($this->gambarSisip, $konversi, 'gambarSisip');
+        $this->gambarSisip = null;
+        if ($path !== null) {
+            $this->isi = rtrim($this->isi)."\n\n![".($this->judul ?: 'gambar').']('.Storage::disk('public')->url($path).')';
+        }
+    }
+
+    public function hapusGambar(): void
+    {
+        $this->gambar = null;
+        $this->gambar_alt = '';
+    }
+
+    private function prosesUnggahan(?TemporaryUploadedFile $file, Pengonversi $konversi, string $kolom): ?string
+    {
+        if ($file === null) {
+            return null;
+        }
+
+        $this->validateOnly($kolom, [$kolom => ['image', 'mimes:jpg,jpeg,png,gif,webp', 'max:5120']], [
+            "{$kolom}.image" => 'File harus berupa gambar.',
+            "{$kolom}.mimes" => 'Format gambar: JPG, PNG, GIF, atau WebP.',
+            "{$kolom}.max" => 'Ukuran gambar maksimal 5 MB.',
+        ]);
+
+        try {
+            return $konversi->simpan((string) file_get_contents($file->getRealPath()));
+        } catch (Throwable $e) {
+            $this->addError($kolom, $e->getMessage());
+
+            return null;
+        } finally {
+            $file->delete();
+        }
     }
 
     public function tambahFaq(): void
@@ -128,6 +193,7 @@ class ArtikelEditor extends Component
         }
 
         $artikel = $this->artikelId ? Artikel::findOrFail($this->artikelId) : new Artikel;
+        $gambarLama = $artikel->gambar;
         Gate::authorize('kelola', $artikel->exists ? $artikel : new Artikel(['user_id' => auth()->id()]));
 
         $terbitPada = match ($this->status) {
@@ -145,12 +211,18 @@ class ArtikelEditor extends Component
                 'kata_kunci' => $this->kata_kunci ?: null,
                 'isi' => $this->isi,
                 'kategori_id' => $this->kategori_id,
+                'gambar' => $this->gambar,
+                'gambar_alt' => $this->gambar_alt ?: null,
                 'status' => $this->status,
                 'terbit_pada' => $terbitPada,
                 'faq' => collect($this->faq)->filter(fn ($f) => filled($f['q']) && filled($f['a']))->values()->all(),
             ])->save();
             $artikel->tag()->sync($this->tagIds);
         });
+
+        if ($gambarLama && $gambarLama !== $this->gambar) {
+            Storage::disk('public')->delete($gambarLama);
+        }
 
         session()->flash('status', 'Artikel disimpan.');
 
