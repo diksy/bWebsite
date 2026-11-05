@@ -125,3 +125,7 @@ php artisan test            # tes (Pest)
 vendor/bin/phpstan analyse  # analisis statis (Larastan)
 vendor/bin/pint             # gaya kode
 ```
+
+## Lisensi
+
+MIT — lihat berkas [LICENSE](LICENSE).
