@@ -55,3 +55,6 @@ Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu 
 - [ ] Migration/model gaya + setelan gaya aktif; gaya bawaan sebagai berkas CSS dengan variabel (token) desain
 - [ ] Layout publik memuat CSS gaya aktif; Form Request unggah (ukuran, ekstensi, sanitasi: tanpa @import/url eksternal/expression)
 - [ ] Template contoh dapat diunduh; tes Pest (pilih gaya, unggah valid/invalid, sanitasi, default minimalis)
+
+## Revisi 2026-11-05 (UAT siklus 2)
+- [x] Bug: `@livewireStyles` / `@livewire(...)` tampil sebagai teks di staging — provider Livewire didaftarkan eksplisit di `bootstrap/providers.php` (cache discovery server basi) + tes
