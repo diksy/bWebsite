@@ -41,3 +41,17 @@
 - [x] Pipeline AI: job per tahap (cari web → ringkas → outline → draf+meta+FAQ), selalu Draf
 - [x] Log AI (token & error per job) + dashboard
 - [x] Cron/queue database untuk cPanel, hapus app/Prototype, cek akhir
+
+## Siklus 2 — Gaya desain UI (2026-11-05)
+Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu berkas `.css` (variabel desain + override) yang dibersihkan sebelum dipakai.
+
+### Prototype (data dummy)
+- [ ] Admin: halaman "Tampilan" — pilih gaya (kartu preview: Minimalis [default], Neo Brutalism, Glassmorphism, + gaya kustom terunggah), tombol Terapkan
+- [ ] Preview publik (beranda + artikel) per gaya lewat `?gaya=` dummy, untuk 3 gaya bawaan
+- [ ] Admin: unggah gaya kustom (form, daftar gaya, hapus) + unduh template CSS contoh beranotasi
+- [ ] Tautan menu "Tampilan" di panel; tampilan mobile
+
+### Build (setelah /setuju prototype)
+- [ ] Migration/model gaya + setelan gaya aktif; gaya bawaan sebagai berkas CSS dengan variabel (token) desain
+- [ ] Layout publik memuat CSS gaya aktif; Form Request unggah (ukuran, ekstensi, sanitasi: tanpa @import/url eksternal/expression)
+- [ ] Template contoh dapat diunduh; tes Pest (pilih gaya, unggah valid/invalid, sanitasi, default minimalis)
