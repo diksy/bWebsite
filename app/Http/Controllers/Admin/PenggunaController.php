@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SimpanPenggunaRequest;
 use App\Models\Artikel;
+use App\Models\Tema;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -59,6 +60,10 @@ class PenggunaController extends Controller
         }
         if ($this->menghilangkanAdminTerakhir($pengguna, User::PERAN_PENULIS, false)) {
             return back()->withErrors(['hapus' => 'Admin terakhir tidak boleh dihapus.']);
+        }
+
+        if (Tema::query()->where('user_id', $pengguna->id)->exists()) {
+            return back()->withErrors(['hapus' => 'Pengguna ini masih menjadi penulis tujuan sebuah tema. Ganti penulis tema itu dulu.']);
         }
 
         if ($pengguna->artikel()->exists()) {
