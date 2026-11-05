@@ -52,12 +52,12 @@ Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu 
 - [x] Tautan menu "Tampilan" di panel; tampilan mobile
 
 ### Build
-- [ ] Migration + model `GayaKustom` (nama, slug, berkas, ukuran) + kunci setelan `gaya_aktif` (default `minimalis`) via Settings; tes Pest
-- [ ] Service `Gaya/Sanitasi` (tolak @import, url() eksternal, expression(), <script>, ukuran >100 KB) + Form Request unggah; tes Pest (valid/invalid)
-- [ ] Controller `Admin/TampilanController` (index, terapkan, unggah, hapus) menggantikan prototype; tes Pest
-- [ ] Layout publik memuat `dasar.css` + CSS gaya aktif (bawaan di `public/gaya`, kustom di storage publik); fallback ke minimalis; tes Pest
-- [ ] Pratinjau memakai gaya & data nyata; template contoh diunduh; hapus `app/Prototype` + `PrototypeTampilanController`
-- [ ] README (bagian Tampilan), Pint + Larastan + tes penuh
+- [x] Migration + model `GayaKustom` (nama, slug, berkas, ukuran) + kunci setelan `gaya_aktif` (default `minimalis`) via Settings; tes Pest
+- [x] Service `Gaya/Sanitasi` (tolak @import, url() eksternal, expression(), <script>, ukuran >100 KB) + Form Request unggah; tes Pest (valid/invalid)
+- [x] Controller `Admin/TampilanController` (index, terapkan, unggah, hapus) menggantikan prototype; tes Pest
+- [x] Layout publik memuat `dasar.css` + CSS gaya aktif (bawaan di `public/gaya`, kustom di storage publik); fallback ke minimalis; tes Pest
+- [x] Pratinjau memakai gaya & data nyata; template contoh diunduh; hapus `app/Prototype` + `PrototypeTampilanController`
+- [x] README (bagian Tampilan), Pint + Larastan + tes penuh
 
 ## Revisi 2026-11-05 (UAT siklus 2)
 - [x] Bug: `@livewireStyles` / `@livewire(...)` tampil sebagai teks di staging — provider Livewire didaftarkan eksplisit di `bootstrap/providers.php` (cache discovery server basi) + tes

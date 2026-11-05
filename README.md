@@ -6,6 +6,7 @@ Hasil AI selalu berstatus **Draf** — tidak ada auto-publish.
 ## Ringkas
 - Publik SSR: beranda, artikel, kategori/tag, penulis, pencarian; sitemap.xml, `rss.xml`, robots.txt, canonical, meta/OG, JSON-LD (Article, BreadcrumbList, FAQPage, Person), ping IndexNow saat terbit.
 - Panel (`/admin`, path bisa diganti di *Pengaturan situs*): editor Markdown (Livewire) dengan skor SEO berbasis aturan, saran link internal, unggah gambar → WebP, jadwal terbit; pengguna (admin/penulis); tema terjadwal; pengaturan AI; log AI; login SSO BikininSSO opsional.
+- Tampilan: admin memilih gaya situs publik (Minimalis [default], Neo Brutalism, Glassmorphism) atau mengunggah gaya CSS sendiri (*Admin → Tampilan*).
 - Penulis AI: pipeline antrean bertahap (cari web → ringkas → outline → draf + meta + FAQ), sumber dicatat.
 
 ## Pemasangan lokal
@@ -27,6 +28,11 @@ php artisan test && vendor/bin/phpstan analyse
    `* * * * * cd /home/USER/folder-aplikasi && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1`
    `schedule:run` sudah menjalankan `queue:work --stop-when-empty` (antrean database), terbit terjadwal, dan tema AI per jam.
 6. Setelah mengubah path admin/artikel di panel, cache rute dibangun ulang otomatis.
+
+## Gaya desain (Tampilan)
+- Gaya bawaan: `public/gaya/{minimalis,neo-brutalism,glassmorphism}.css`; struktur umum di `public/gaya/dasar.css`. Semua gaya hanya mengatur variabel `--g-*` (warna, huruf, sudut, bayangan, efek kaca).
+- Gaya kustom: unduh `public/gaya/template-contoh.css` (juga tersedia di halaman Tampilan), ubah nilainya, unggah sebagai `.css` (maks. 100 KB). Berkas disimpan di storage publik dan dibersihkan: `@import`, `url()`, `expression()`, escape backslash, dan `<` ditolak.
+- Menghapus gaya yang sedang aktif mengembalikan situs ke Minimalis.
 
 ## Catatan operasional
 - Job AI dipecah satu panggilan per tahap (timeout 120 dtk, 2 percobaan) agar aman dari batas waktu hosting.
