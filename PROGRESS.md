@@ -15,3 +15,8 @@
 - [x] Pengaturan AI (OpenAI-compatible + Tavily + uji koneksi)
 - [x] Tema terjadwal (daftar + form)
 - [x] Log AI (token & error per job)
+
+## Revisi 2026-11-05
+- [x] Path /admin dapat diubah di panel admin
+- [x] Path /artikel dapat diubah di panel admin
+- [x] Opsi integrasi SSO (BikininSSO, opsional) di pengaturan + tombol di login
