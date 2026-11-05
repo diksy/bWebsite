@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SimpanPenggunaRequest;
+use App\Models\Artikel;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
 {
     public function index(): View
     {
-        return view('admin.pengguna.index', ['pengguna' => User::query()->orderBy('name')->get()]);
+        return view('admin.pengguna.index', ['pengguna' => User::query()->withCount('artikel')->orderBy('name')->get()]);
     }
 
     public function create(): View
@@ -50,13 +52,21 @@ class PenggunaController extends Controller
         return redirect()->route('admin.pengguna.index')->with('status', 'Pengguna diperbarui.');
     }
 
-    public function destroy(User $pengguna): RedirectResponse
+    public function destroy(Request $request, User $pengguna): RedirectResponse
     {
         if ($pengguna->is(auth()->user())) {
             return back()->withErrors(['hapus' => 'Anda tidak dapat menghapus akun sendiri.']);
         }
         if ($this->menghilangkanAdminTerakhir($pengguna, User::PERAN_PENULIS, false)) {
             return back()->withErrors(['hapus' => 'Admin terakhir tidak boleh dihapus.']);
+        }
+
+        if ($pengguna->artikel()->exists()) {
+            $tujuan = User::query()->whereKey($request->integer('pindah_ke'))->where('id', '!=', $pengguna->id)->where('is_active', true)->first();
+            if ($tujuan === null) {
+                return back()->withErrors(['hapus' => 'Pengguna ini punya artikel; pilih penulis tujuan untuk memindahkannya.']);
+            }
+            Artikel::query()->where('user_id', $pengguna->id)->update(['user_id' => $tujuan->id]);
         }
 
         $pengguna->delete();

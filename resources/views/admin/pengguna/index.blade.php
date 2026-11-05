@@ -10,6 +10,8 @@
         <td>{{ $u->is_active ? 'Aktif' : 'Nonaktif' }}</td>
         <td>{{ $u->password === null ? ($u->sso_subject ? 'SSO' : 'Tanpa login') : 'Kata sandi' }}</td>
         <td class="whitespace-nowrap"><a class="text-emerald-700" href="{{ route('admin.pengguna.edit', $u) }}">Sunting</a>
-            <form method="post" action="{{ route('admin.pengguna.destroy', $u) }}" class="inline" onsubmit="return confirm('Hapus pengguna ini?')">@csrf @method('DELETE')<button class="ml-2 text-red-600">Hapus</button></form></td></tr>
+            <form method="post" action="{{ route('admin.pengguna.destroy', $u) }}" class="inline" onsubmit="return confirm('Hapus pengguna ini?')">@csrf @method('DELETE')
+                @if ($u->artikel_count > 0)<select name="pindah_ke" class="rounded border text-xs" title="Pindahkan {{ $u->artikel_count }} artikel ke"><option value="">Pindahkan {{ $u->artikel_count }} artikel ke…</option>@foreach ($pengguna->where('is_active', true)->where('id', '!=', $u->id) as $t)<option value="{{ $t->id }}">{{ $t->name }}</option>@endforeach</select>@endif
+                <button class="ml-2 text-red-600">Hapus</button></form></td></tr>
     @endforeach</tbody></table></div>
 @endsection

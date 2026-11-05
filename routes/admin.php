@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\DasborController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PengaturanAiController;
@@ -18,6 +19,10 @@ Route::post('/keluar', [MasukController::class, 'keluar'])->middleware('auth')->
 
 Route::middleware(['auth', 'peran:admin,penulis'])->group(function () {
     Route::get('/', DasborController::class)->name('dasbor');
+    Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
+    Route::get('/artikel/baru', [ArtikelController::class, 'create'])->name('artikel.create');
+    Route::get('/artikel/{artikel}/sunting', [ArtikelController::class, 'edit'])->name('artikel.edit');
+    Route::delete('/artikel/{artikel}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
 });
 
 Route::middleware(['auth', 'peran:admin'])->group(function () {
