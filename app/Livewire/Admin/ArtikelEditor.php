@@ -7,6 +7,8 @@ use App\Models\Kategori;
 use App\Models\Tag;
 use App\Models\User;
 use App\Services\Gambar\Pengonversi;
+use App\Services\Seo\SaranLinkInternal;
+use App\Services\Seo\SkorSeo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -170,6 +172,18 @@ class ArtikelEditor extends Component
         }
     }
 
+    /** Sisipkan link internal (path relatif) ke akhir isi. */
+    public function sisipkanLink(int $id): void
+    {
+        $a = Artikel::query()->diterbitkan()->find($id);
+        if ($a === null) {
+            return;
+        }
+
+        $path = parse_url($a->url(), PHP_URL_PATH) ?: '/'.$a->slug;
+        $this->isi = rtrim($this->isi)."\n\nBaca juga: [{$a->judul}]({$path})";
+    }
+
     public function tambahFaq(): void
     {
         if (count($this->faq) < 10) {
@@ -236,9 +250,11 @@ class ArtikelEditor extends Component
         return null;
     }
 
-    public function render(): View
+    public function render(SkorSeo $seo, SaranLinkInternal $saran): View
     {
         return view('livewire.admin.artikel-editor', [
+            'seo' => $seo->analisis($this->judul, $this->ringkasan, $this->kata_kunci, $this->isi, $this->gambar, $this->gambar_alt, $this->faq),
+            'saranLink' => $saran->untuk($this->artikelId, $this->judul, $this->kata_kunci, $this->isi, $this->kategori_id),
             'daftarKategori' => Kategori::query()->orderBy('nama')->get(['id', 'nama']),
             'daftarTag' => Tag::query()->orderBy('nama')->get(['id', 'nama']),
             'daftarPenulis' => auth()->user()->isAdmin() ? User::query()->where('is_active', true)->orderBy('name')->get(['id', 'name']) : collect(),

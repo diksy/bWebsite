@@ -124,3 +124,25 @@ it('menghapus pengguna ber-artikel harus memindahkan artikel', function () {
 
     expect(Artikel::first()->user_id)->toBe($this->admin->id);
 });
+
+it('editor menampilkan skor SEO dan saran link internal yang relevan', function () {
+    $kat = Kategori::factory()->create();
+    $relevan = Artikel::factory()->terbit()->create(['judul' => 'Strategi Marketing Digital', 'kategori_id' => $kat->id, 'slug' => 'strategi-marketing']);
+    Artikel::factory()->terbit()->create(['judul' => 'Resep Nasi Goreng', 'slug' => 'nasi-goreng']);
+
+    $c = Livewire::actingAs($this->admin)->test(ArtikelEditor::class)
+        ->set('judul', 'Panduan marketing')->set('kata_kunci', 'marketing')->set('isi', 'Belajar marketing digital untuk pemula.')->set('kategori_id', $kat->id)
+        ->assertSee('Skor SEO')->assertSee('Strategi Marketing Digital')->assertDontSee('Resep Nasi Goreng');
+
+    $c->call('sisipkanLink', $relevan->id);
+    expect($c->get('isi'))->toContain('Baca juga: [Strategi Marketing Digital](/artikel/strategi-marketing)');
+});
+
+it('saran link tidak menawarkan artikel yang sudah ditautkan atau draf', function () {
+    Artikel::factory()->terbit()->create(['judul' => 'Marketing Online', 'slug' => 'marketing-online']);
+    Artikel::factory()->create(['judul' => 'Marketing Draf', 'slug' => 'marketing-draf']);
+
+    Livewire::actingAs($this->admin)->test(ArtikelEditor::class)
+        ->set('judul', 'marketing')->set('kata_kunci', 'marketing')->set('isi', 'lihat [x](/artikel/marketing-online)')
+        ->assertDontSee('Marketing Online')->assertDontSee('Marketing Draf');
+});

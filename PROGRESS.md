@@ -32,7 +32,7 @@
 - [x] Kategori, tag, penulis (profil) + seeder
 - [x] Artikel: model, status draf/terjadwal/terbit, editor Markdown, FAQ, sumber
 - [x] Upload gambar → WebP
-- [ ] Skor SEO berbasis aturan + saran link internal
+- [x] Skor SEO berbasis aturan + saran link internal
 - [ ] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
 - [ ] Pencarian
 - [ ] SEO teknis: meta/OG, canonical, JSON-LD, sitemap.xml, RSS, robots, redirect path lama

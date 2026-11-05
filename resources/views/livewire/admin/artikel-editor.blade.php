@@ -16,6 +16,13 @@
         @if ($sumber)<div class="rounded border border-violet-200 bg-violet-50 p-3 text-sm"><b>Sumber riset AI</b><ul class="mt-1 list-disc pl-5">@foreach ($sumber as $s)<li><a class="underline" href="{{ $s['url'] }}" target="_blank" rel="noopener nofollow">{{ $s['judul'] ?? $s['url'] }}</a></li>@endforeach</ul></div>@endif
     </div>
     <aside class="space-y-4">
+        <div class="rounded-xl bg-white p-4 shadow-sm"><div class="flex items-baseline justify-between"><b>Skor SEO</b><span class="text-3xl font-bold {{ $seo['skor'] >= 80 ? 'text-emerald-600' : ($seo['skor'] >= 50 ? 'text-amber-600' : 'text-red-600') }}">{{ $seo['skor'] }}</span></div>
+            <p class="text-xs text-slate-400">{{ $seo['kata'] }} kata · berbasis aturan, tanpa AI</p>
+            <ul class="mt-3 space-y-1.5 text-sm">@foreach ($seo['cek'] as $c)<li class="{{ $c['ok'] ? 'text-emerald-700' : 'text-red-600' }}">{{ $c['ok'] ? '✓' : '✗' }} {{ $c['teks'] }}</li>@endforeach</ul>
+            @if ($seo['perlu_kata_kunci'])<p class="mt-2 text-xs text-slate-500">Isi kata kunci utama untuk mengaktifkan pengecekan kata kunci.</p>@endif</div>
+        <div class="rounded-xl bg-white p-4 shadow-sm"><b>Saran link internal</b>
+            @forelse ($saranLink as $s)<div class="mt-2 flex justify-between gap-2 text-sm" wire:key="saran-{{ $s->id }}"><span>{{ $s->judul }}</span><button type="button" wire:click="sisipkanLink({{ $s->id }})" class="shrink-0 text-emerald-700">Sisipkan</button></div>
+            @empty<p class="mt-2 text-xs text-slate-500">Belum ada artikel terbit yang relevan.</p>@endforelse</div>
         <div class="space-y-3 rounded-xl bg-white p-4 shadow-sm"><b>Terbit</b>
             <label class="block text-sm">Status<select wire:model.live="status" class="mt-1 w-full rounded border px-2 py-1.5"><option value="draf">Draf</option><option value="terjadwal">Terjadwal</option><option value="terbit">Terbit</option></select></label>
             @if ($status !== 'draf')<label class="block text-sm">{{ $status === 'terjadwal' ? 'Jadwal terbit' : 'Tanggal terbit' }}<input type="datetime-local" wire:model="terbit_pada" class="mt-1 w-full rounded border px-2 py-1.5"></label>@endif
@@ -32,6 +39,5 @@
             <label class="block cursor-pointer text-center text-xs text-emerald-700">+ Sisipkan gambar ke isi artikel<input type="file" wire:model="gambarSisip" accept="image/*" class="hidden"></label>
             <div wire:loading wire:target="gambarBaru,gambarSisip" class="text-xs text-slate-500">Memproses gambar…</div>
             @error('gambarBaru')<div class="text-xs text-red-600">{{ $message }}</div>@enderror @error('gambarSisip')<div class="text-xs text-red-600">{{ $message }}</div>@enderror</div>
-        {{-- Panel SEO: langkah berikutnya --}}
     </aside>
 </form>
