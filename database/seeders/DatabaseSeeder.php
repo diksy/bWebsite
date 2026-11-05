@@ -2,24 +2,23 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kategori;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
+    /** Data awal minimal; aman dijalankan berulang. */
     public function run(): void
     {
-        // User::factory(10)->create();
+        foreach (['Teknologi', 'Bisnis', 'Gaya Hidup'] as $nama) {
+            Kategori::query()->firstOrCreate(['slug' => str($nama)->slug()->toString()], ['nama' => $nama]);
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Penulis bawaan untuk konten AI: tidak punya kata sandi sehingga tidak bisa login.
+        User::query()->firstOrCreate(
+            ['email' => 'redaksi@invalid.local'],
+            ['name' => 'Redaksi', 'peran' => User::PERAN_PENULIS, 'is_active' => true, 'bio' => 'Tim redaksi.'],
+        );
     }
 }

@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\DasborController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PengaturanAiController;
 use App\Http\Controllers\Admin\PengaturanSitusController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\MasukController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,12 @@ Route::middleware(['auth', 'peran:admin,penulis'])->group(function () {
 });
 
 Route::middleware(['auth', 'peran:admin'])->group(function () {
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+    Route::post('/tag', [TagController::class, 'store'])->name('tag.store');
+    Route::delete('/tag/{tag}', [TagController::class, 'destroy'])->name('tag.destroy');
     Route::get('/pengaturan-ai', [PengaturanAiController::class, 'edit'])->name('pengaturan.ai');
     Route::put('/pengaturan-ai', [PengaturanAiController::class, 'update'])->name('pengaturan.ai.simpan');
     Route::post('/pengaturan-ai/uji-ai', [PengaturanAiController::class, 'ujiAi'])->name('pengaturan.ai.uji-ai');

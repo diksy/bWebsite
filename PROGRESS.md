@@ -29,7 +29,7 @@
 - [x] Pengguna: CRUD admin (Form Request, tes)
 - [x] SSO opsional BikininSSO (OIDC+PKCE, hanya pengguna terdaftar, back-channel logout)
 - [x] Pengaturan: tabel settings, API key terenkripsi, uji koneksi AI & Tavily (adapter)
-- [ ] Kategori, tag, penulis (profil) + seeder
+- [x] Kategori, tag, penulis (profil) + seeder
 - [ ] Artikel: model, status draf/terjadwal/terbit, editor Markdown, FAQ, sumber
 - [ ] Upload gambar → WebP
 - [ ] Skor SEO berbasis aturan + saran link internal
