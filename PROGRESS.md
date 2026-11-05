@@ -7,11 +7,11 @@
 - [x] Kategori / tag
 - [x] Halaman penulis
 - [x] Pencarian
-- [ ] Login (admin + penulis)
-- [ ] Dashboard admin
-- [ ] Daftar artikel + filter status
-- [ ] Editor Markdown + panel skor SEO + saran link internal
-- [ ] Unggah gambar + jadwal terbit
-- [ ] Pengaturan AI (OpenAI-compatible + Tavily + uji koneksi)
-- [ ] Tema terjadwal (daftar + form)
-- [ ] Log AI (token & error per job)
+- [x] Login (admin + penulis)
+- [x] Dashboard admin
+- [x] Daftar artikel + filter status
+- [x] Editor Markdown + panel skor SEO + saran link internal
+- [x] Unggah gambar + jadwal terbit
+- [x] Pengaturan AI (OpenAI-compatible + Tavily + uji koneksi)
+- [x] Tema terjadwal (daftar + form)
+- [x] Log AI (token & error per job)
