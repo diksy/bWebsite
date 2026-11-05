@@ -35,7 +35,7 @@
 - [x] Skor SEO berbasis aturan + saran link internal
 - [x] Publik: beranda, artikel, kategori/tag, penulis (SSR, lazy-load)
 - [x] Pencarian
-- [ ] SEO teknis: meta/OG, canonical, JSON-LD, sitemap.xml, RSS, robots, redirect path lama
+- [x] SEO teknis: meta/OG, canonical, JSON-LD, sitemap.xml, RSS, robots, redirect path lama
 - [ ] Terbit terjadwal (schedule) + ping IndexNow
 - [ ] Tema terjadwal (CRUD, batas draf/minggu)
 - [ ] Pipeline AI: job per tahap (cari web → ringkas → outline → draf+meta+FAQ), selalu Draf

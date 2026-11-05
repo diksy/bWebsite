@@ -6,6 +6,7 @@ use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\Tag;
 use App\Models\User;
+use App\Services\Seo\JsonLd;
 use App\Support\Situs;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +18,7 @@ class PublikController extends Controller
 {
     private const PER_HALAMAN = 9;
 
-    public function beranda(Request $request): View
+    public function beranda(Request $request, JsonLd $ld): View
     {
         $daftar = $this->dasar()->latest('terbit_pada')->paginate(self::PER_HALAMAN)->withQueryString();
         $utama = $daftar->currentPage() === 1 ? $daftar->first() : null;
@@ -27,11 +28,12 @@ class PublikController extends Controller
             'artikel' => $utama ? $daftar->getCollection()->slice(1) : $daftar->getCollection(),
             'daftar' => $daftar,
             'tagPopuler' => Tag::query()->withCount(['artikel' => fn ($q) => $q->diterbitkan()])->orderByDesc('artikel_count')->limit(12)->get()->where('artikel_count', '>', 0),
+            'jsonld' => $ld->beranda(),
             'meta' => $this->meta(Situs::nama().(Situs::tagline() ? ' — '.Situs::tagline() : ''), Situs::tagline(), url('/')),
         ]);
     }
 
-    public function artikel(string $slug): View|RedirectResponse
+    public function artikel(string $slug, JsonLd $ld): View|RedirectResponse
     {
         $artikel = $this->dasar()->with(['tag', 'kategori', 'penulis'])->where('slug', $slug)->firstOrFail();
 
@@ -43,6 +45,7 @@ class PublikController extends Controller
         return view('publik.artikel', [
             'a' => $artikel,
             'terkait' => $terkait,
+            'jsonld' => $ld->artikel($artikel),
             'meta' => $this->meta($artikel->judul.' — '.Situs::nama(), (string) ($artikel->ringkasan ?: str($artikel->isi)->limit(155)), $artikel->url(), 'article', $artikel->gambar),
         ]);
     }
@@ -63,7 +66,7 @@ class PublikController extends Controller
         return redirect()->to($a->url(), 301);
     }
 
-    public function kategori(string $slug): View
+    public function kategori(string $slug, JsonLd $ld): View
     {
         $kategori = Kategori::query()->where('slug', $slug)->firstOrFail();
         $daftar = $this->dasar()->where('kategori_id', $kategori->id)->latest('terbit_pada')->paginate(self::PER_HALAMAN);
@@ -72,6 +75,7 @@ class PublikController extends Controller
             'judul' => $kategori->nama,
             'deskripsi' => $kategori->deskripsi,
             'jenis' => 'Kategori',
+            'jsonld' => [$ld->breadcrumb([['Beranda', url('/')], [$kategori->nama, url('kategori/'.$kategori->slug)]])],
             'daftar' => $daftar,
             'meta' => $this->meta("{$kategori->nama} — ".Situs::nama(), $kategori->deskripsi ?: "Artikel kategori {$kategori->nama}", url('kategori/'.$kategori->slug)),
         ]);
@@ -91,7 +95,7 @@ class PublikController extends Controller
         ]);
     }
 
-    public function penulis(string $slug): View
+    public function penulis(string $slug, JsonLd $ld): View
     {
         $penulis = User::query()->where('slug', $slug)->where('is_active', true)->firstOrFail();
         $daftar = $this->dasar()->where('user_id', $penulis->id)->latest('terbit_pada')->paginate(self::PER_HALAMAN);
@@ -99,6 +103,7 @@ class PublikController extends Controller
 
         return view('publik.penulis', [
             'p' => $penulis,
+            'jsonld' => $ld->penulis($penulis),
             'daftar' => $daftar,
             'meta' => $this->meta("{$penulis->name} — ".Situs::nama(), $penulis->bio ?: "Artikel oleh {$penulis->name}", url('penulis/'.$penulis->slug), 'profile'),
         ]);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PublikController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SsoController;
 use App\Support\Settings;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -18,6 +19,11 @@ Route::prefix('sso')->name('admin.sso.')->group(function () {
     Route::post('/backchannel-logout', [SsoController::class, 'backchannel'])
         ->withoutMiddleware([PreventRequestForgery::class])->name('backchannel');
 });
+
+// SEO teknis
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/rss.xml', [SeoController::class, 'rss'])->name('rss');
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 
 // Halaman publik
 Route::get('/', [PublikController::class, 'beranda'])->name('beranda');

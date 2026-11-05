@@ -6,6 +6,7 @@ use Database\Factories\KategoriFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 #[Fillable(['nama', 'slug', 'deskripsi'])]
@@ -21,5 +22,11 @@ class Kategori extends Model
         static::saving(function (Kategori $k): void {
             $k->slug = Str::slug($k->slug ?: $k->nama);
         });
+    }
+
+    /** @return HasMany<Artikel, $this> */
+    public function artikel(): HasMany
+    {
+        return $this->hasMany(Artikel::class);
     }
 }

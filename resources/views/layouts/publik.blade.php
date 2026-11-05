@@ -16,6 +16,8 @@
     @if ($meta['gambar'])<meta property="og:image" content="{{ $meta['gambar'] }}">@endif
     <meta name="twitter:card" content="{{ $meta['gambar'] ? 'summary_large_image' : 'summary' }}">
     @if (Route::has('rss'))<link rel="alternate" type="application/rss+xml" title="{{ \App\Support\Situs::nama() }}" href="{{ route('rss') }}">@endif
+    @foreach (($jsonld ?? []) as $skema){!! \App\Services\Seo\JsonLd::tag($skema) !!}
+    @endforeach
     @stack('head')
     @vite(['resources/css/app.css'])
 </head>
