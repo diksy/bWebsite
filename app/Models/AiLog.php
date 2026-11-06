@@ -11,7 +11,7 @@ class AiLog extends Model
 
     protected $table = 'ai_log';
 
-    protected $guarded = [];
+    protected $fillable = ['ai_run_id', 'tahap', 'status', 'token_masuk', 'token_keluar', 'durasi_ms', 'pesan', 'created_at'];
 
     /** @var array<string, string> */
     protected $casts = ['token_masuk' => 'integer', 'token_keluar' => 'integer', 'durasi_ms' => 'integer'];

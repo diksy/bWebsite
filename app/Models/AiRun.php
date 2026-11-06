@@ -18,7 +18,7 @@ class AiRun extends Model
 
     protected $table = 'ai_run';
 
-    protected $guarded = [];
+    protected $fillable = ['tema_id', 'artikel_id', 'status', 'topik', 'data', 'pesan', 'created_at', 'updated_at'];
 
     /** @var array<string, string> */
     protected $casts = ['data' => 'array'];

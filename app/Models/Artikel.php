@@ -26,7 +26,7 @@ class Artikel extends Model
 
     protected $table = 'artikel';
 
-    protected $guarded = [];
+    protected $fillable = ['user_id', 'kategori_id', 'tema_id', 'judul', 'slug', 'ringkasan', 'kata_kunci', 'isi', 'isi_html', 'gambar', 'gambar_alt', 'status', 'terbit_pada', 'faq', 'sumber', 'dibuat_ai', 'created_at', 'updated_at'];
 
     /** @var array<string, string> */
     protected $casts = [
