@@ -63,3 +63,8 @@ Asumsi: gaya berlaku untuk situs publik (panel admin tetap); gaya kustom = satu 
 - [x] Bug: `@livewireStyles` / `@livewire(...)` tampil sebagai teks di staging — provider Livewire didaftarkan eksplisit di `bootstrap/providers.php` (cache discovery server basi) + tes
 
 - [x] README ditulis ulang untuk pengguna produk (rilis GitHub): fitur, kebutuhan, pemasangan, penggunaan, SSO, pembaruan, pemecahan masalah
+
+## Revisi 2026-11-06 (hasil uji aman)
+- [x] Ganti `$guarded = []` ke `$fillable` di Artikel, AiLog, AiRun (tes penuh hijau)
+- [x] Middleware `HeaderKeamanan`: CSP ber-nonce tanpa wildcard, X-Frame-Options + frame-ancestors, HSTS (HTTPS saja), Permissions-Policy, nosniff, Referrer-Policy; handler inline diganti `public/js/konfirmasi.js`; Livewire `csp_safe`; tes Pest. Catatan: `style-src-attr 'unsafe-inline'` dipertahankan (atribut style=""); gambar eksternal di isi artikel diblokir (`img-src 'self' data:`)
+

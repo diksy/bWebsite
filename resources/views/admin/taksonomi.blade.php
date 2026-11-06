@@ -8,7 +8,7 @@
             <li class="py-2"><form method="post" action="{{ route('admin.kategori.update', $k) }}" class="flex flex-wrap items-center gap-2">@csrf @method('PUT')
                 <input name="nama" value="{{ $k->nama }}" class="w-32 rounded border px-2 py-1"><input name="slug" value="{{ $k->slug }}" class="w-32 rounded border px-2 py-1"><input name="deskripsi" value="{{ $k->deskripsi }}" placeholder="Deskripsi" class="min-w-0 flex-1 rounded border px-2 py-1">
                 <button class="text-emerald-700">Simpan</button></form>
-                <form method="post" action="{{ route('admin.kategori.destroy', $k) }}" onsubmit="return confirm('Hapus kategori?')">@csrf @method('DELETE')<button class="text-xs text-red-600">Hapus</button></form></li>
+                <form method="post" action="{{ route('admin.kategori.destroy', $k) }}" data-konfirmasi="Hapus kategori?">@csrf @method('DELETE')<button class="text-xs text-red-600">Hapus</button></form></li>
         @endforeach</ul>
         <form method="post" action="{{ route('admin.kategori.store') }}" class="flex flex-wrap gap-2 border-t pt-3 text-sm">@csrf
             <input name="nama" placeholder="Nama kategori" required class="rounded border px-2 py-1"><input name="deskripsi" placeholder="Deskripsi (opsional)" class="min-w-0 flex-1 rounded border px-2 py-1"><button class="rounded bg-emerald-700 px-3 py-1 text-white">Tambah</button></form></section>

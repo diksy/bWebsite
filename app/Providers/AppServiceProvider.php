@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Alpine versi CSP-safe agar script-src tidak butuh 'unsafe-eval'.
+        config(['livewire.csp_safe' => true]);
     }
 }

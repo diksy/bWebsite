@@ -15,7 +15,7 @@
         <td><span class="rounded px-2 py-0.5 text-xs {{ ['draf'=>'bg-amber-100 text-amber-800','terjadwal'=>'bg-sky-100 text-sky-800','terbit'=>'bg-emerald-100 text-emerald-800'][$a->status] }}">{{ ucfirst($a->status) }}</span></td>
         <td>{{ $a->terbit_pada?->timezone(config('app.timezone'))->format('d M Y H:i') ?? '—' }}</td>
         <td class="whitespace-nowrap"><a class="text-emerald-700" href="{{ route('admin.artikel.edit', $a) }}">Sunting</a>
-            <form method="post" action="{{ route('admin.artikel.destroy', $a) }}" class="inline" onsubmit="return confirm('Hapus artikel ini?')">@csrf @method('DELETE')<button class="ml-2 text-red-600">Hapus</button></form></td></tr>
+            <form method="post" action="{{ route('admin.artikel.destroy', $a) }}" class="inline" data-konfirmasi="Hapus artikel ini?">@csrf @method('DELETE')<button class="ml-2 text-red-600">Hapus</button></form></td></tr>
     @empty<tr><td colspan="5" class="p-6 text-center text-slate-500">Belum ada artikel.</td></tr>@endforelse</tbody></table></div>
 <div class="mt-4">{{ $artikel->links() }}</div>
 @endsection

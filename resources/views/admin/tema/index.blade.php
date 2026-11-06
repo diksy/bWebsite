@@ -11,6 +11,6 @@
         <div class="mt-2 flex gap-3 text-sm">
             @if (Route::has('admin.tema.jalankan'))<form method="post" action="{{ route('admin.tema.jalankan', $t) }}">@csrf<button class="text-emerald-700">Jalankan sekarang</button></form>@endif
             <a class="text-emerald-700" href="{{ route('admin.tema.edit', $t) }}">Sunting</a>
-            <form method="post" action="{{ route('admin.tema.destroy', $t) }}" onsubmit="return confirm('Hapus tema? Artikel hasilnya tetap ada.')">@csrf @method('DELETE')<button class="text-red-600">Hapus</button></form></div></div>
+            <form method="post" action="{{ route('admin.tema.destroy', $t) }}" data-konfirmasi="Hapus tema? Artikel hasilnya tetap ada.">@csrf @method('DELETE')<button class="text-red-600">Hapus</button></form></div></div>
 @empty<p class="rounded-xl bg-white p-6 text-center text-slate-500 shadow-sm">Belum ada tema.</p>@endforelse</div>
 @endsection

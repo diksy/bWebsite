@@ -30,7 +30,7 @@
                     @if ($k->slug === $aktif)<span class="rounded bg-emerald-100 px-2 text-xs text-emerald-800">aktif</span>@endif</div>
                 <p class="mt-1 text-xs text-slate-500">Diunggah {{ $k->created_at->locale('id')->translatedFormat('d F Y') }} · {{ number_format($k->ukuran / 1024, 1) }} KB</p>
                 <div class="mt-2 flex gap-3 text-xs"><a href="{{ route('admin.tampilan.preview', $k->slug) }}" target="_blank" class="text-emerald-700 hover:underline">Pratinjau ↗</a>
-                    <button type="submit" form="hapus-{{ $k->id }}" onclick="return confirm('Hapus gaya ini?')" class="text-red-600 hover:underline">Hapus</button></div>
+                    <button type="submit" form="hapus-{{ $k->id }}" data-konfirmasi="Hapus gaya ini?" class="text-red-600 hover:underline">Hapus</button></div>
             </label>
         @empty
             <p class="text-sm text-slate-500">Belum ada gaya kustom.</p>

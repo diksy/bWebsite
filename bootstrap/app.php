@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\HeaderKeamanan;
 use App\Http\Middleware\PeranMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->web(append: [HeaderKeamanan::class]);
         $middleware->alias(['peran' => PeranMiddleware::class]);
         $middleware->redirectGuestsTo(fn () => route('admin.masuk'));
     })

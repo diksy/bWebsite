@@ -39,5 +39,6 @@
     </main>
 </div>
 @livewireScripts
+<script src="{{ asset('js/konfirmasi.js') }}" nonce="{{ Vite::cspNonce() }}" defer></script>
 </body>
 </html>
